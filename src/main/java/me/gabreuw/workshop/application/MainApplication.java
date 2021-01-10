@@ -1,4 +1,4 @@
-package me.gabreuw.workshop;
+package me.gabreuw.workshop.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
