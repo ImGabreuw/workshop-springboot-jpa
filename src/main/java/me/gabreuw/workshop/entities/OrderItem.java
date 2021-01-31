@@ -16,7 +16,7 @@ import java.io.Serializable;
 public class OrderItem implements Serializable {
 
     @EmbeddedId
-    private OrderItemPK id = new OrderItemPK();
+    private final OrderItemPK id = new OrderItemPK();
 
     @Getter
     @Setter
