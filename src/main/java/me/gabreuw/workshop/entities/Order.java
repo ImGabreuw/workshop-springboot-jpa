@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import me.gabreuw.workshop.entities.enums.OrderStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,7 +14,6 @@ import java.time.Instant;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Data
 @EqualsAndHashCode(of = "id")
 @Entity
@@ -30,9 +30,26 @@ public class Order implements Serializable {
             timezone = "GMT"
     )
     private Instant moment;
+    private Integer status;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
 
+    public Order(Long id, Instant moment, OrderStatus status, User client) {
+        this.id = id;
+        this.moment = moment;
+        setStatus(status);
+        this.client = client;
+    }
+
+    public OrderStatus getStatus() {
+        return OrderStatus.valueOf(this.status);
+    }
+
+    public void setStatus(OrderStatus status) {
+        if (status == null) return;
+
+        this.status = status.getCode();
+    }
 }
