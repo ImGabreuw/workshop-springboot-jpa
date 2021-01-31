@@ -37,16 +37,18 @@ public class TestConfiguration implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        initializeEntities();
+        mockData();
     }
 
-    private void initializeEntities() {
+    private void mockData() {
         /*
         CATEGORY
          */
         Category electronics = new Category(null, "Electronics");
         Category books = new Category(null, "Books");
         Category computers = new Category(null, "Computers");
+
+        categoryRepository.saveAll(List.of(electronics, books, computers));
 
         /*
         PRODUCT
@@ -86,6 +88,25 @@ public class TestConfiguration implements CommandLineRunner {
                 ""
         );
 
+        productRepository.saveAll(List.of(macbook_pro, pc_gamer, rails_for_dummies, smart_tv, the_lord_of_the_rings));
+
+        /*
+        ASSOCIATION
+         */
+
+        the_lord_of_the_rings.getCategories().add(books);
+
+        smart_tv.getCategories().add(electronics);
+        smart_tv.getCategories().add(computers);
+
+        macbook_pro.getCategories().add(computers);
+
+        pc_gamer.getCategories().add(computers);
+
+        rails_for_dummies.getCategories().add(books);
+
+        productRepository.saveAll(List.of(macbook_pro, pc_gamer, rails_for_dummies, smart_tv, the_lord_of_the_rings));
+
         /*
         USER
          */
@@ -103,6 +124,8 @@ public class TestConfiguration implements CommandLineRunner {
                 "977777777",
                 "123456"
         );
+
+        userRepository.saveAll(List.of(maria_brown, alex_green));
 
         /*
         ORDER
@@ -125,9 +148,6 @@ public class TestConfiguration implements CommandLineRunner {
                 maria_brown
         );
 
-        categoryRepository.saveAll(List.of(electronics, books, computers));
-        productRepository.saveAll(List.of(macbook_pro, pc_gamer, rails_for_dummies, smart_tv, the_lord_of_the_rings));
-        userRepository.saveAll(List.of(maria_brown, alex_green));
         orderRepository.saveAll(List.of(order1, order2, order3));
     }
 }
