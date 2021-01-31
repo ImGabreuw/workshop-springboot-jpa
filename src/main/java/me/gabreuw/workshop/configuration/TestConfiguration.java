@@ -1,8 +1,10 @@
 package me.gabreuw.workshop.configuration;
 
+import me.gabreuw.workshop.entities.Category;
 import me.gabreuw.workshop.entities.Order;
 import me.gabreuw.workshop.entities.User;
 import me.gabreuw.workshop.entities.enums.OrderStatus;
+import me.gabreuw.workshop.repositories.CategoryRepository;
 import me.gabreuw.workshop.repositories.OrderRepository;
 import me.gabreuw.workshop.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ public class TestConfiguration implements CommandLineRunner {
     private UserRepository userRepository;
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -33,6 +37,16 @@ public class TestConfiguration implements CommandLineRunner {
     }
 
     private void initializeEntities() {
+        /*
+        CATEGORY
+         */
+        Category electronics = new Category(null, "Electronics");
+        Category books = new Category(null, "Books");
+        Category computers = new Category(null, "Computers");
+
+        /*
+        USER
+         */
         User maria_brown = new User(
                 null,
                 "Maria Brown",
@@ -48,6 +62,9 @@ public class TestConfiguration implements CommandLineRunner {
                 "123456"
         );
 
+        /*
+        ORDER
+         */
         Order order1 = new Order(
                 null,
                 Instant.parse("2019-06-20T19:53:07Z"),
@@ -66,6 +83,7 @@ public class TestConfiguration implements CommandLineRunner {
                 maria_brown
         );
 
+        categoryRepository.saveAll(List.of(electronics, books, computers));
         userRepository.saveAll(List.of(maria_brown, alex_green));
         orderRepository.saveAll(List.of(order1, order2, order3));
     }
