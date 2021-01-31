@@ -1,8 +1,7 @@
 package me.gabreuw.workshop.entities;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 import me.gabreuw.workshop.entities.pk.OrderItemPK;
 
 import javax.persistence.EmbeddedId;
@@ -11,25 +10,30 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @NoArgsConstructor
-@Data
 @EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "tb_order_item")
 public class OrderItem implements Serializable {
 
     @EmbeddedId
-    private OrderItemPK id;
+    private OrderItemPK id = new OrderItemPK();
 
+    @Getter
+    @Setter
     private Integer quantity;
+    @Getter
+    @Setter
     private Double price;
 
     public OrderItem(Order order, Product product, Integer quantity, Double price) {
+        super();
         id.setOrder(order);
         id.setProduct(product);
         this.quantity = quantity;
         this.price = price;
     }
 
+    @JsonIgnore
     public Order getOrder() {
         return id.getOrder();
     }

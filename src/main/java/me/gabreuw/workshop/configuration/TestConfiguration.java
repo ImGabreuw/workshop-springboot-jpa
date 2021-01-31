@@ -1,14 +1,8 @@
 package me.gabreuw.workshop.configuration;
 
-import me.gabreuw.workshop.entities.Category;
-import me.gabreuw.workshop.entities.Order;
-import me.gabreuw.workshop.entities.Product;
-import me.gabreuw.workshop.entities.User;
+import me.gabreuw.workshop.entities.*;
 import me.gabreuw.workshop.entities.enums.OrderStatus;
-import me.gabreuw.workshop.repositories.CategoryRepository;
-import me.gabreuw.workshop.repositories.OrderRepository;
-import me.gabreuw.workshop.repositories.ProductRepository;
-import me.gabreuw.workshop.repositories.UserRepository;
+import me.gabreuw.workshop.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -34,6 +28,8 @@ public class TestConfiguration implements CommandLineRunner {
     private CategoryRepository categoryRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -149,5 +145,32 @@ public class TestConfiguration implements CommandLineRunner {
         );
 
         orderRepository.saveAll(List.of(order1, order2, order3));
+
+        OrderItem orderItem1 = new OrderItem(
+                order1,
+                the_lord_of_the_rings,
+                2,
+                the_lord_of_the_rings.getPrice()
+        );
+        OrderItem orderItem2 = new OrderItem(
+                order1,
+                macbook_pro,
+                1,
+                macbook_pro.getPrice()
+        );
+        OrderItem orderItem3 = new OrderItem(
+                order2,
+                macbook_pro,
+                2,
+                macbook_pro.getPrice()
+        );
+        OrderItem orderItem4 = new OrderItem(
+                order3,
+                rails_for_dummies,
+                2,
+                rails_for_dummies.getPrice()
+        );
+
+        orderItemRepository.saveAll(List.of(orderItem1, orderItem2, orderItem3, orderItem4));
     }
 }
