@@ -7,28 +7,26 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.Instant;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @EqualsAndHashCode(of = "id")
 @Entity
-@Table(name = "tb_user")
-public class User implements Serializable {
+@Table(name = "tb_order")
+public class Order implements Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    private String name;
-    private String email;
-    private String phone;
-    private String password;
+    private Instant moment;
 
-    @OneToMany(mappedBy = "client")
-    private final List<Order> orders = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private User client;
+
 }
