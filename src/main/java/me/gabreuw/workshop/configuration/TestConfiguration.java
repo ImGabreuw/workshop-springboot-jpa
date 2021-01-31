@@ -2,10 +2,12 @@ package me.gabreuw.workshop.configuration;
 
 import me.gabreuw.workshop.entities.Category;
 import me.gabreuw.workshop.entities.Order;
+import me.gabreuw.workshop.entities.Product;
 import me.gabreuw.workshop.entities.User;
 import me.gabreuw.workshop.entities.enums.OrderStatus;
 import me.gabreuw.workshop.repositories.CategoryRepository;
 import me.gabreuw.workshop.repositories.OrderRepository;
+import me.gabreuw.workshop.repositories.ProductRepository;
 import me.gabreuw.workshop.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -30,6 +32,8 @@ public class TestConfiguration implements CommandLineRunner {
     private OrderRepository orderRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -43,6 +47,44 @@ public class TestConfiguration implements CommandLineRunner {
         Category electronics = new Category(null, "Electronics");
         Category books = new Category(null, "Books");
         Category computers = new Category(null, "Computers");
+
+        /*
+        PRODUCT
+         */
+        Product the_lord_of_the_rings = new Product(
+                null,
+                "The Lord of the Rings",
+                "Lorem ipsum dolor sit amet, consectetur.",
+                90.5,
+                ""
+        );
+        Product smart_tv = new Product(
+                null,
+                "Smart TV",
+                "Nulla eu imperdiet purus. Maecenas ante.",
+                2190.0,
+                ""
+        );
+        Product macbook_pro = new Product(
+                null,
+                "Macbook Pro",
+                "Nam eleifend maximus tortor, at mollis.",
+                1250.0,
+                ""
+        );
+        Product pc_gamer = new Product(
+                null, "PC Gamer",
+                "Donec aliquet odio ac rhoncus cursus.",
+                1200.0,
+                ""
+        );
+        Product rails_for_dummies = new Product(
+                null,
+                "Rails for Dummies",
+                "Cras fringilla convallis sem vel faucibus.",
+                100.99,
+                ""
+        );
 
         /*
         USER
@@ -84,6 +126,7 @@ public class TestConfiguration implements CommandLineRunner {
         );
 
         categoryRepository.saveAll(List.of(electronics, books, computers));
+        productRepository.saveAll(List.of(macbook_pro, pc_gamer, rails_for_dummies, smart_tv, the_lord_of_the_rings));
         userRepository.saveAll(List.of(maria_brown, alex_green));
         orderRepository.saveAll(List.of(order1, order2, order3));
     }

@@ -17,16 +17,18 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Data
 @EqualsAndHashCode(of = "id")
 @Entity
-@Table(name = "tb_category")
-public class Category implements Serializable {
+@Table(name = "tb_product")
+public class Product implements Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
     private String name;
+    private String description;
+    private Double price;
+    private String imgUrl;
 
     @Transient
-    private final Set<Product> products = new HashSet<>();
-
+    private final Set<Category> categories = new HashSet<>();
 }
