@@ -12,6 +12,7 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @NoArgsConstructor
@@ -39,6 +40,12 @@ public class Order implements Serializable {
 
     @OneToMany(mappedBy = "id.order")
     private Set<OrderItem> items = new HashSet<>();
+
+    @OneToOne(
+            mappedBy = "order",
+            cascade = ALL
+    )
+    private Payment payment;
 
     public Order(Long id, Instant moment, OrderStatus status, User client) {
         this.id = id;

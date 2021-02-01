@@ -146,6 +146,9 @@ public class TestConfiguration implements CommandLineRunner {
 
         orderRepository.saveAll(List.of(order1, order2, order3));
 
+        /*
+        ORDER ITEM
+         */
         OrderItem orderItem1 = new OrderItem(
                 order1,
                 the_lord_of_the_rings,
@@ -172,5 +175,20 @@ public class TestConfiguration implements CommandLineRunner {
         );
 
         orderItemRepository.saveAll(List.of(orderItem1, orderItem2, orderItem3, orderItem4));
+
+        /*
+        PAYMENT
+         */
+
+        Payment payment1 = new Payment(
+                null,
+                Instant.parse("2019-06-20T21:53:07Z"),
+                order1
+        );
+
+        order1.setPayment(payment1);
+
+        orderRepository.save(order1);
+
     }
 }
