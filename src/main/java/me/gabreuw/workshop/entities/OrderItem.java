@@ -26,7 +26,6 @@ public class OrderItem implements Serializable {
     private Double price;
 
     public OrderItem(Order order, Product product, Integer quantity, Double price) {
-        super();
         id.setOrder(order);
         id.setProduct(product);
         this.quantity = quantity;
