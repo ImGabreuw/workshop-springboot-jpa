@@ -63,4 +63,10 @@ public class Order implements Serializable {
 
         this.status = status.getCode();
     }
+
+    public Double getTotal() {
+        return items.stream()
+                .map(OrderItem::getSubTotal)
+                .reduce(0D, Double::sum);
+    }
 }
